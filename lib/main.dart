@@ -24,7 +24,7 @@ class _AppState extends State<AppQR> {
         ),
         child: Container(
           decoration: BoxDecoration(
-            color: Colors.amberAccent,
+            color: Colors.amber,
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(30.0),
               topRight: Radius.circular(30.0),
@@ -32,7 +32,7 @@ class _AppState extends State<AppQR> {
           ),
           child: Center(
             child: SizedBox(
-              width: 200.0,
+              width: 250.0,
               height: 100.0,
               child: RaisedButton(
                 onPressed: () {

@@ -1,6 +1,13 @@
+import 'dart:convert';
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:qr_code_scanner/qr_scanner_overlay_shape.dart';
+import './URLFetchData.dart';
+import './modals/qrdata.dart';
+import 'package:http/http.dart' as http;
+
+var qrText = "";
 
 class MyApp extends StatefulWidget {
   @override
@@ -10,7 +17,23 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   //qr setup
   GlobalKey qrKey = GlobalKey();
-  var qrText = "";
+
+  Future<QrData> fetchQRDATA() async {
+    print("hello: $qrText");
+    final response = await http.get(qrText);
+
+    if (response.statusCode == 200) {
+      // If the server did return a 200 OK response,
+      // then parse the JSON.
+      var decode = jsonDecode(response.body);
+      return QrData.fromJson(decode);
+    } else {
+      // If the server did not return a 200 OK response,
+      // then throw an exception.
+      throw Exception('Failed to load data');
+    }
+  }
+
   QRViewController controller;
   @override
   Widget build(BuildContext context) {
@@ -47,8 +70,15 @@ class _MyAppState extends State<MyApp> {
   void _onQRViewCreate(QRViewController controller) {
     this.controller = controller;
     controller.scannedDataStream.listen((scanData) {
-      setState(() {
+      setState(() async {
         qrText = scanData;
+
+        await fetchQRDATA();
+
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (BuildContext context) => QRDataJSON(
+                  jsonData: [],
+                )));
       });
     });
   }
