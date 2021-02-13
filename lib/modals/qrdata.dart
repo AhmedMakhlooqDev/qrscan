@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
 // ignore: must_be_immutable
-class QrData extends StatelessWidget {
+class QrData {
   String companyId;
   String code;
   String nameAr;
@@ -25,17 +25,17 @@ class QrData extends StatelessWidget {
       this.paymentStatues,
       this.orderDate});
 
-  factory QrData.fromJson(Map<String, dynamic> json) => QrData(
-        companyId: json['company_id'],
-        code: json['code'],
-        nameAr: json['name_ar'],
-        phone: json['phone'],
-        email: json['email'],
-        currency: json['currency'],
-        subTotal: json['sub_total'],
-        invoiceID: json['gatee_invoice_id'],
-        paymentStatues: json['status'],
-        orderDate: json['order_date'],
+  factory QrData.fromJson(Map<String, dynamic> responseJSON) => QrData(
+        companyId: responseJSON['company_id'],
+        code: responseJSON['code'],
+        nameAr: responseJSON['name_ar'],
+        phone: responseJSON['phone'],
+        email: responseJSON['email'],
+        currency: responseJSON['currency'],
+        subTotal: responseJSON['sub_total'],
+        invoiceID: responseJSON['gatee_invoice_id'],
+        paymentStatues: responseJSON['status'],
+        orderDate: responseJSON['order_date'],
       );
 
   Map<String, dynamic> toJson() {
@@ -51,10 +51,5 @@ class QrData extends StatelessWidget {
       "status": paymentStatues,
       "order_date": orderDate,
     };
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container();
   }
 }
