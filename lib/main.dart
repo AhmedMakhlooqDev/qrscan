@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:qrscan/qr_scan.dart';
+import 'URLFetchData.dart';
 
 void main() => runApp(MaterialApp(home: AppQR()));
 
@@ -16,6 +17,7 @@ class _AppState extends State<AppQR> {
         backgroundColor: Colors.black,
         title: Text(
           "QR scanner",
+          style: TextStyle(fontWeight: FontWeight.w100),
         ),
       ),
       body: Container(
@@ -24,7 +26,7 @@ class _AppState extends State<AppQR> {
         ),
         child: Container(
           decoration: BoxDecoration(
-            color: Colors.amber,
+            color: Colors.grey[900],
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(30.0),
               topRight: Radius.circular(30.0),
@@ -43,7 +45,7 @@ class _AppState extends State<AppQR> {
                 textColor: Colors.white,
                 child: const Text(
                   'Scan',
-                  style: TextStyle(fontSize: 25),
+                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.w100),
                 ),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20.0),
