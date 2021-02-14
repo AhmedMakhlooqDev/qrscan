@@ -46,10 +46,10 @@ class _QRDataJSONState extends State<QRDataJSON> {
       body: Container(
         decoration: BoxDecoration(
             borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(30.0),
-              topRight: Radius.circular(30.0),
+              topLeft: Radius.circular(15.0),
+              topRight: Radius.circular(15.0),
             ),
-            color: Colors.white),
+            color: Colors.grey[100]),
         child: Column(
           children: [
             Container(
@@ -59,26 +59,29 @@ class _QRDataJSONState extends State<QRDataJSON> {
                   if (snapshot.hasData) {
                     return Center(
                       child: Padding(
-                        padding:
-                            const EdgeInsets.only(left: 25, right: 25, top: 25),
+                        padding: const EdgeInsets.only(
+                            left: 25, right: 25, top: 25, bottom: 25),
                         child: Container(
                           height: 500,
                           decoration: BoxDecoration(
-                            color: Colors.grey[100],
+                            color: Colors.white,
                             borderRadius:
-                                BorderRadius.all(Radius.circular(40.0)),
+                                BorderRadius.all(Radius.circular(20.0)),
                           ),
                           child: Padding(
-                            padding: const EdgeInsets.all(8.0),
+                            padding: const EdgeInsets.all(20.0),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text(
-                                  'Order Details',
-                                  style: TextStyle(
-                                      fontSize: 30.0,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w300),
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 1.0),
+                                  child: Text(
+                                    'Order Details',
+                                    style: TextStyle(
+                                        fontSize: 30.0,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w400),
+                                  ),
                                 ),
                                 Container(
                                   height: 10,
@@ -92,29 +95,42 @@ class _QRDataJSONState extends State<QRDataJSON> {
                                 CustomerProperty(
                                     propertyName: 'phone:',
                                     value: snapshot.data.phone),
-                                CustomerProperty(
-                                    propertyName: 'Order date:',
-                                    value: snapshot.data.orderDate),
                                 Padding(
-                                  padding: const EdgeInsets.only(bottom: 8),
+                                  padding: const EdgeInsets.only(bottom: 1),
                                   child: Container(
                                     width: double.infinity,
                                     height: 0.5,
-                                    color: Colors.black,
+                                    color: Colors.grey,
                                   ),
                                 ),
-                                CustomerProperty(
-                                    propertyName: 'code:',
-                                    value: snapshot.data.code),
-                                CustomerProperty(
-                                    propertyName: 'Payement status:',
-                                    value: snapshot.data.paymentStatues),
-                                CustomerProperty(
-                                    propertyName: 'Invoice ID',
-                                    value: snapshot.data.invoiceID),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    CustomerProperty(
+                                        propertyName: 'Order date:',
+                                        value: snapshot.data.orderDate),
+                                    CustomerProperty(
+                                        propertyName: 'Invoice ID:',
+                                        value: snapshot.data.invoiceID),
+                                  ],
+                                ),
+                                Container(
+                                  width: 700,
+                                  color: Colors.lightGreen[500],
+                                  child: CustomerProperty(
+                                      propertyName: 'Payement status:',
+                                      value: snapshot.data.paymentStatues),
+                                ),
                                 CustomerProperty(
                                     propertyName: 'Subtotal:',
                                     value: snapshot.data.subTotal),
+                                Align(
+                                  alignment: Alignment.center,
+                                  child: CustomerProperty(
+                                      propertyName: 'code:',
+                                      value: snapshot.data.code),
+                                ),
                               ],
                             ),
                           ),
@@ -141,9 +157,9 @@ class _QRDataJSONState extends State<QRDataJSON> {
               //     }),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 30.0),
+              padding: const EdgeInsets.only(top: 5.0),
               child: SizedBox(
-                width: 170.0,
+                width: 110.0,
                 height: 70.0,
                 child: RaisedButton(
                   onPressed: () {
@@ -170,10 +186,13 @@ class _QRDataJSONState extends State<QRDataJSON> {
 }
 
 final TextStyle stylu = TextStyle(
-    fontSize: 20.0,
+    fontSize: 15.0,
     fontFamily: 'RobotMono',
-    fontWeight: FontWeight.w300,
+    fontWeight: FontWeight.bold,
     color: Colors.black);
+
+final TextStyle stylee =
+    TextStyle(fontSize: 17.0, fontWeight: FontWeight.w300, color: Colors.black);
 
 class CustomerProperty extends StatelessWidget {
   final String propertyName;
@@ -189,15 +208,22 @@ class CustomerProperty extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text('${this.propertyName}', style: stylu),
-          Text(
-            '${this.value.replaceAll(new RegExp(r'[^\w\s]+'), '')}',
-            style: stylu,
-          )
-        ],
+      child: Align(
+        alignment: Alignment.topLeft,
+        child: Wrap(
+          direction: Axis.vertical,
+          crossAxisAlignment: WrapCrossAlignment.start,
+          spacing: 5,
+          runSpacing: 5,
+          //mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text('${this.propertyName}', style: stylee),
+            Text(
+              '${this.value.replaceAll(new RegExp(r'[^\w\s]+'), '')}',
+              style: stylu,
+            )
+          ],
+        ),
       ),
     );
   }
