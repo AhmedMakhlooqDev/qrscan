@@ -14,7 +14,7 @@ class _AppState extends State<AppQR> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.blue[900],
         title: Text(
           "QR scanner",
           style: TextStyle(fontWeight: FontWeight.w100),
@@ -22,37 +22,66 @@ class _AppState extends State<AppQR> {
       ),
       body: Container(
         decoration: BoxDecoration(
-          color: Colors.black,
+          color: Colors.blue[900],
         ),
         child: Container(
           decoration: BoxDecoration(
-            color: Colors.grey[900],
+            color: Colors.white,
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(30.0),
               topRight: Radius.circular(30.0),
             ),
           ),
-          child: Center(
-            child: SizedBox(
-              width: 250.0,
-              height: 100.0,
-              child: RaisedButton(
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (BuildContext context) => MyApp()));
-                },
-                color: Colors.black,
-                textColor: Colors.white,
-                child: const Text(
-                  'Scan',
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.w100),
-                ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20.0),
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 240, bottom: 30),
+                child: Text(
+                  'Press the scan button to start scanning',
+                  style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w100),
                 ),
               ),
-            ),
+              Center(
+                child: ScanButton(),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 220),
+                child: Text(
+                  'powered by Gatee',
+                  style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.w100),
+                ),
+              ),
+            ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class ScanButton extends StatelessWidget {
+  const ScanButton({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 250.0,
+      height: 100.0,
+      child: RaisedButton(
+        onPressed: () {
+          Navigator.of(context).push(
+              MaterialPageRoute(builder: (BuildContext context) => MyApp()));
+        },
+        color: Colors.blue[900],
+        textColor: Colors.white,
+        child: const Text(
+          'Scan',
+          style: TextStyle(fontSize: 25, fontWeight: FontWeight.w100),
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20.0),
         ),
       ),
     );

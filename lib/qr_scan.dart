@@ -32,11 +32,6 @@ class _MyAppState extends State<MyApp> {
                     cutOutSize: 300),
                 onQRViewCreated: _onQRViewCreate),
           ),
-          Expanded(
-              flex: 1,
-              child: Center(
-                child: Text('Scan result: $qrText'),
-              ))
         ],
       ),
     );
