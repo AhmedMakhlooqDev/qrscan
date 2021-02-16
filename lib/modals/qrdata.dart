@@ -12,6 +12,7 @@ class QrData {
   String invoiceID;
   String paymentStatues;
   String orderDate;
+  String nameEng;
 
   QrData(
       {this.companyId,
@@ -23,17 +24,18 @@ class QrData {
       this.subTotal,
       this.invoiceID,
       this.paymentStatues,
-      this.orderDate});
+      this.orderDate,
+      this.nameEng});
 
   factory QrData.fromJson(Map<String, dynamic> responseJSON) => QrData(
         companyId: responseJSON['company_id'],
         code: responseJSON['code'],
-        nameAr: responseJSON['name_ar'],
+        nameAr: responseJSON['name_en'],
         phone: responseJSON['phone'],
         email: responseJSON['email'],
         currency: responseJSON['currency'],
         subTotal: responseJSON['sub_total'],
-        invoiceID: responseJSON['gatee_invoice_id'],
+        invoiceID: responseJSON['gatee_payment_id'],
         paymentStatues: responseJSON['status'],
         orderDate: responseJSON['order_date'],
       );

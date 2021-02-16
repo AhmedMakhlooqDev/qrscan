@@ -31,7 +31,6 @@ class QRDataJSON extends StatefulWidget {
 }
 
 class _QRDataJSONState extends State<QRDataJSON> {
-  QrData qr = QrData();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,36 +42,28 @@ class _QRDataJSONState extends State<QRDataJSON> {
           style: TextStyle(fontWeight: FontWeight.w100),
         ),
       ),
-      body: Container(
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(15.0),
-              topRight: Radius.circular(15.0),
-            ),
-            color: Colors.grey[100]),
-        child: Column(
-          children: [
-            Container(
-              child: FutureBuilder(
-                future: fetchJSON(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    return Center(
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                            left: 25, right: 25, top: 25, bottom: 15),
-                        child: Container(
-                          height:
-                              520, // EDIT THE ORDER DETAILS CONTAINER HEIGHT
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(20.0)),
-                          ),
+      body: SingleChildScrollView(
+        child: Container(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(15.0),
+                topRight: Radius.circular(15.0),
+              ),
+              color: Colors.grey[100]),
+          child: Column(
+            children: [
+              Container(
+                child: FutureBuilder(
+                  future: fetchJSON(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return Center(
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                              left: 10, right: 10, top: 10),
                           child: Padding(
-                            padding: const EdgeInsets.all(35.0),
+                            padding: const EdgeInsets.all(30.0),
                             child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Padding(
                                   padding: const EdgeInsets.only(bottom: 1.0),
@@ -85,7 +76,27 @@ class _QRDataJSONState extends State<QRDataJSON> {
                                   ),
                                 ),
                                 Container(
-                                  height: 10,
+                                  height: 30,
+                                ),
+                                Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    CustomerProperty(
+                                        propertyName: 'Order date',
+                                        value: snapshot.data.orderDate),
+                                    CustomerProperty(
+                                        propertyName: 'Invoice ID',
+                                        value: snapshot.data.invoiceID),
+                                  ],
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 15),
+                                  child: Container(
+                                    width: double.infinity,
+                                    height: 0.5,
+                                    color: Colors.grey,
+                                  ),
                                 ),
                                 CustomerProperty(
                                     propertyName: 'Name',
@@ -96,105 +107,134 @@ class _QRDataJSONState extends State<QRDataJSON> {
                                 CustomerProperty(
                                     propertyName: 'phone',
                                     value: snapshot.data.phone),
-                                Padding(
-                                  padding: const EdgeInsets.only(bottom: 10),
-                                  child: Container(
-                                    width: double.infinity,
-                                    height: 0.5,
-                                    color: Colors.grey,
-                                  ),
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    CustomerProperty(
-                                        propertyName: 'Order date',
-                                        value: snapshot.data.orderDate),
-                                    CustomerProperty(
-                                        propertyName: 'Invoice ID',
-                                        value: snapshot.data.invoiceID),
-                                  ],
-                                ),
+                                CustomerProperty(
+                                    propertyName: 'code',
+                                    value: snapshot.data.code),
                                 PaymentStatues(
                                   propertyName: 'Payement Statues',
                                   value: snapshot.data.paymentStatues,
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Column(
-                                    children: [
-                                      CustomerProperty(
-                                          propertyName: 'Subtotal',
-                                          value: snapshot.data.subTotal),
-                                      CustomerProperty(
-                                          propertyName: 'code',
-                                          value: snapshot.data.code),
-                                    ],
+                                  padding: const EdgeInsets.only(top: 10.0),
+                                  child: CurrencyProperty(
+                                    propertyName: 'Subtotal',
+                                    value: snapshot.data.subTotal,
+                                    curValue: snapshot.data.currency,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      top: 30, bottom: 20),
+                                  child: Align(
+                                    alignment: Alignment.center,
+                                    child: Wrap(
+                                      direction: Axis.vertical,
+                                      crossAxisAlignment:
+                                          WrapCrossAlignment.start,
+                                      spacing: 70,
+                                      runSpacing: 5,
+                                      children: [
+                                        Text(
+                                            'Dark Souls: Remastered    BHD 21   1',
+                                            style: styling),
+                                        Text(
+                                            'Dark Souls: Remastered    BHD 21   1',
+                                            style: styling),
+                                        Text(
+                                            'Dark Souls: Remastered    BHD 21   1',
+                                            style: styling),
+                                        Text(
+                                            'Dark Souls: Remastered    BHD 21   1',
+                                            style: styling),
+                                        Text(
+                                            'Dark Souls: Remastered    BHD 21   1',
+                                            style: styling),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ],
                             ),
                           ),
                         ),
-                      ),
+                      );
+                    } else if (snapshot.hasError) {
+                      return Text("${snapshot.error}");
+                    }
+                    return Padding(
+                      padding: const EdgeInsets.only(top: 200, bottom: 289),
+                      child: Center(child: CircularProgressIndicator()),
                     );
-                  } else if (snapshot.hasError) {
-                    return Text("${snapshot.error}");
-                  }
-                  return Padding(
-                    padding: const EdgeInsets.only(top: 200, bottom: 289),
-                    child: Center(child: CircularProgressIndicator()),
-                  );
-                },
-              ),
-              // child: new ListView.builder(
-              //     itemCount: qrDataList.length,
-              //     itemBuilder: (context, i) {
-              //       final jsonDataList = qrDataList[i];
-              //       return Container(
-              //         child: Text(
-              //             'Company ID: ${jsonDataList.companyId}\n name: ${jsonDataList.email}'),
-              //       );
-              //     }),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 5.0),
-              child: SizedBox(
-                width: 110.0,
-                height: 70.0,
-                child: RaisedButton(
-                  onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (BuildContext context) => AppQR()));
                   },
-                  color: Colors.blue[900],
-                  textColor: Colors.white,
-                  child: const Text(
-                    'home',
-                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.w100),
-                  ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20.0),
+                ),
+                // child: new ListView.builder(
+                //     itemCount: qrDataList.length,
+                //     itemBuilder: (context, i) {
+                //       final jsonDataList = qrDataList[i];
+                //       return Container(
+                //         child: Text(
+                //             'Company ID: ${jsonDataList.companyId}\n name: ${jsonDataList.email}'),
+                //       );
+                //     }),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 2.0, bottom: 20.0),
+                child: SizedBox(
+                  width: 350.0,
+                  height: 60.0,
+                  child: RaisedButton(
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (BuildContext context) => AppQR()));
+                    },
+                    color: Colors.blue[900],
+                    textColor: Colors.white,
+                    child: const Text(
+                      'Confirm Delivery',
+                      style:
+                          TextStyle(fontSize: 25, fontWeight: FontWeight.w300),
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
                   ),
                 ),
-              ),
-            )
-          ],
+              )
+            ],
+          ),
         ),
       ),
     );
   }
 }
 
+// class Currency extends StatelessWidget {
+//   final String label;
+//   final String subTotalValue;
+//   final String currencyValue;
+//   const Currency({
+//     @required this.label,
+//     @required this.subTotalValue,
+//     @required this.currencyValue,
+//     Key key,
+//   }) : super(key: key);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Text('${this.label}: ${this.subTotalValue} ${this.currencyValue}');
+//   }
+// }
+
 class PaymentStatues extends StatelessWidget {
   //green container
   final String propertyName;
   final String value;
+  final String currency;
 
   const PaymentStatues({
     @required this.propertyName,
     @required this.value,
+    this.currency,
     Key key,
   }) : super(key: key);
 
@@ -231,13 +271,16 @@ class PaymentStatues extends StatelessWidget {
 }
 
 final TextStyle stylu = TextStyle(
-    fontSize: 15.0,
+    fontSize: 13.0,
     fontFamily: 'RobotMono',
     fontWeight: FontWeight.bold,
     color: Colors.black);
 
 final TextStyle stylee =
     TextStyle(fontSize: 13.0, fontWeight: FontWeight.w500, color: Colors.black);
+
+final TextStyle styling =
+    TextStyle(fontSize: 17.0, fontWeight: FontWeight.w500, color: Colors.black);
 
 class CustomerProperty extends StatelessWidget {
   final String propertyName;
@@ -267,6 +310,52 @@ class CustomerProperty extends StatelessWidget {
               '${this.value.replaceAll(new RegExp(r'[|]+'), '')}',
               style: stylu,
             )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class CurrencyProperty extends StatelessWidget {
+  final String propertyName;
+  final String value;
+  final String curValue;
+
+  const CurrencyProperty({
+    @required this.propertyName,
+    @required this.value,
+    @required this.curValue,
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10),
+      child: Align(
+        alignment: Alignment.topLeft,
+        child: Wrap(
+          direction: Axis.vertical,
+          crossAxisAlignment: WrapCrossAlignment.start,
+          spacing: 5,
+          runSpacing: 5,
+          //mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text('${this.propertyName}', style: stylee),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  '${this.value.replaceAll(new RegExp(r'[|]+'), '')}',
+                  style: styling,
+                ),
+                Container(
+                  width: 2.0,
+                ),
+                Text('${this.curValue}', style: styling),
+              ],
+            ),
           ],
         ),
       ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:qrscan/qr_scan.dart';
 import 'URLFetchData.dart';
 
@@ -12,6 +13,8 @@ class AppQR extends StatefulWidget {
 class _AppState extends State<AppQR> {
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blue[900],
