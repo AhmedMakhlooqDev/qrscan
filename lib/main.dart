@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:qrscan/qr_scan.dart';
-import 'URLFetchData.dart';
+import 'package:qrscan/qr_scan_page.dart';
+import 'UIPrefrences.dart';
 
 void main() => runApp(MaterialApp(home: AppQR()));
 
@@ -24,9 +24,6 @@ class _AppState extends State<AppQR> {
         ),
       ),
       body: Container(
-        decoration: BoxDecoration(
-          color: Colors.blue[900],
-        ),
         child: Container(
           decoration: BoxDecoration(
             color: Colors.white,
@@ -38,17 +35,23 @@ class _AppState extends State<AppQR> {
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.only(top: 240, bottom: 30),
+                padding: const EdgeInsets.only(top: 190, bottom: 30),
                 child: Text(
                   'Press the scan button to start scanning',
                   style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w100),
                 ),
               ),
               Center(
-                child: ScanButton(),
+                child: ScanButton(name: 'Scan'),
+              ),
+              Container(
+                height: 20.0,
+              ),
+              Center(
+                child: ScanButton(name: 'Enter Number'),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 220),
+                padding: const EdgeInsets.only(top: 200),
                 child: Text(
                   'powered by Gatee',
                   style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.w100),
@@ -56,35 +59,6 @@ class _AppState extends State<AppQR> {
               ),
             ],
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class ScanButton extends StatelessWidget {
-  const ScanButton({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: 250.0,
-      height: 100.0,
-      child: RaisedButton(
-        onPressed: () {
-          Navigator.of(context).push(
-              MaterialPageRoute(builder: (BuildContext context) => MyApp()));
-        },
-        color: Colors.blue[900],
-        textColor: Colors.white,
-        child: const Text(
-          'Scan',
-          style: TextStyle(fontSize: 25, fontWeight: FontWeight.w100),
-        ),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20.0),
         ),
       ),
     );
