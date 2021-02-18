@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:qrscan/qr_scan_page.dart';
 import 'UIPrefrences.dart';
 
 void main() => runApp(MaterialApp(home: AppQR()));
@@ -51,7 +50,7 @@ class _AppState extends State<AppQR> {
                 child: ScanButton(name: 'Enter Number'),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 200),
+                padding: const EdgeInsets.only(top: 150),
                 child: Text(
                   'powered by Gatee',
                   style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.w100),

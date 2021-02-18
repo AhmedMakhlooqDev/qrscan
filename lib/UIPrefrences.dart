@@ -36,10 +36,6 @@ class PaymentStatues extends StatelessWidget {
     return Container(
       width: 700,
       color: Colors.lightGreen[500],
-
-      // child: CustomerProperty(
-      //     propertyName: 'Payement status:',
-      //     value: snapshot.data.paymentStatues),
       child: Padding(
         padding: const EdgeInsets.only(
             top: 10.0, bottom: 10.0, left: 20.0, right: 20.0),
@@ -151,46 +147,60 @@ class CustomerProperty extends StatelessWidget {
 // item row for details page
 
 class ItemRow extends StatelessWidget {
+  final String currency;
+  final String nameEng;
+  final String img;
+  final String quantity;
+  final String orgTotal;
+
   const ItemRow({
+    @required this.currency,
+    @required this.nameEng,
+    @required this.img,
+    @required this.quantity,
+    @required this.orgTotal,
     Key key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      // decoration: BoxDecoration(
+      //   borderRadius: BorderRadius.circular(10.0),
+      //   color: Colors.grey[200],
+      //   boxShadow: [
+      //     BoxShadow(color: Colors.grey[400], spreadRadius: 4, blurRadius: 25),
+      //   ],
+      // ),
       width: 600,
-      child: Row(
+
+      child: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.only(right: 10.0),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(9.0), //or 15.0
-              child: Container(
-                height: 70.0,
-                width: 70.0,
-                color: Colors.grey,
-                child: Image(
-                  image: AssetImage('images/er.jpg'),
-                ),
-              ),
-            ),
-          ),
-          Align(
-            alignment: Alignment.topLeft,
+          Card(
+            color: Colors.grey[100],
             child: Column(
               children: [
-                Wrap(
-                  children: [
-                    Text(
-                      'dark souls remastered',
-                      style: styling,
+                ListTile(
+                  leading: ClipRRect(
+                    borderRadius: BorderRadius.circular(9.0), //or 15.0
+                    child: Container(
+                      height: 70.0,
+                      width: 60.0,
+                      color: Colors.grey[300],
+                      child: Image(
+                        image: NetworkImage(this.img),
+                      ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 5.0),
-                      child: Text('Quantity: 10'),
-                    ),
-                    Text('21 BD', style: styling),
-                  ],
+                  ),
+                  title: Text(
+                    '${this.nameEng}',
+                    style: stylu,
+                  ),
+                  subtitle: Text(
+                    'QTY: ${this.quantity}',
+                    style: TextStyle(fontSize: 11),
+                  ),
+                  trailing: Text('${this.orgTotal}'),
                 ),
               ],
             ),

@@ -42,92 +42,124 @@ class _QRDataJSONState extends State<QRDataJSON> {
                     if (snapshot.hasData) {
                       return Center(
                         child: Padding(
-                          padding: const EdgeInsets.only(
-                              left: 10, right: 10, top: 10),
+                          padding: const EdgeInsets.only(top: 10),
                           child: Padding(
-                            padding: const EdgeInsets.all(30.0),
+                            padding: const EdgeInsets.all(0.0),
                             child: Column(
                               children: [
                                 Padding(
-                                  padding: const EdgeInsets.only(bottom: 1.0),
-                                  child: Text(
-                                    'Order Details',
-                                    style: TextStyle(
-                                        fontSize: 30.0,
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.w400),
-                                  ),
-                                ),
-                                Container(
-                                  height: 30,
-                                ),
-                                Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    CustomerProperty(
-                                        propertyName: 'Order date',
-                                        value: snapshot.data.orderDate),
-                                    CustomerProperty(
-                                        propertyName: 'Invoice ID',
-                                        value: snapshot.data.invoiceID),
-                                  ],
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(bottom: 15),
-                                  child: Container(
-                                    width: double.infinity,
-                                    height: 0.5,
-                                    color: Colors.grey,
-                                  ),
-                                ),
-                                CustomerProperty(
-                                    propertyName: 'Name',
-                                    value: snapshot.data.nameAr),
-                                CustomerProperty(
-                                    propertyName: 'email',
-                                    value: snapshot.data.email),
-                                CustomerProperty(
-                                    propertyName: 'phone',
-                                    value: snapshot.data.phone),
-                                CustomerProperty(
-                                    propertyName: 'code',
-                                    value: snapshot.data.code),
-                                PaymentStatues(
-                                  propertyName: 'Payement Statues',
-                                  value: snapshot.data.paymentStatues,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 10.0),
-                                  child: CurrencyProperty(
-                                    propertyName: 'Subtotal',
-                                    value: snapshot.data.subTotal,
-                                    curValue: snapshot.data.currency,
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(bottom: 15),
-                                  child: Container(
-                                    width: double.infinity,
-                                    height: 0.5,
-                                    color: Colors.grey,
+                                  padding: const EdgeInsets.all(20.0),
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        'Order Details',
+                                        style: TextStyle(
+                                            fontSize: 30.0,
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.w400),
+                                      ),
+                                      Container(
+                                        height: 30,
+                                      ),
+                                      Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          CustomerProperty(
+                                              propertyName: 'Order date',
+                                              value: snapshot.data.orderDate),
+                                          CustomerProperty(
+                                              propertyName: 'Invoice ID',
+                                              value: snapshot.data.invoiceID),
+                                        ],
+                                      ),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(bottom: 15),
+                                        child: Container(
+                                          width: double.infinity,
+                                          height: 0.5,
+                                          color: Colors.grey,
+                                        ),
+                                      ),
+                                      CustomerProperty(
+                                          propertyName: 'Name',
+                                          value: snapshot.data.nameAr),
+                                      CustomerProperty(
+                                          propertyName: 'email',
+                                          value: snapshot.data.email),
+                                      CustomerProperty(
+                                          propertyName: 'phone',
+                                          value: snapshot.data.phone),
+                                      CustomerProperty(
+                                          propertyName: 'code',
+                                          value: snapshot.data.code),
+                                      PaymentStatues(
+                                        propertyName: 'Payement Statues',
+                                        value: snapshot.data.paymentStatues,
+                                      ),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(top: 10.0),
+                                        child: CurrencyProperty(
+                                          propertyName: 'Subtotal',
+                                          value: snapshot.data.subTotal,
+                                          curValue: snapshot.data.currency,
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(bottom: 15),
+                                        child: Container(
+                                          width: double.infinity,
+                                          height: 0.5,
+                                          color: Colors.grey,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
                                 Text(
                                   'Items',
                                   style: TextStyle(fontSize: 20.0),
-                                  textAlign: TextAlign.left,
+                                  //textAlign: TextAlign.left,
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      top: 30, bottom: 20),
-                                  child: Wrap(
-                                    direction: Axis.vertical,
-                                    spacing: 30,
-                                    children: [
-                                      ItemRow(),
-                                    ],
-                                  ),
+                                FutureBuilder(
+                                  future: fetchJSONItems(),
+                                  builder: (context, AsyncSnapshot snapshot) {
+                                    if (snapshot.hasData) {
+                                      return Padding(
+                                        padding: const EdgeInsets.only(
+                                          top: 5,
+                                          bottom: 20,
+                                        ),
+                                        child: Wrap(
+                                          //direction: Axis.vertical,
+                                          spacing: 5,
+                                          children: <Widget>[
+                                            ItemRow(
+                                                nameEng: snapshot.data.nameEng,
+                                                currency:
+                                                    snapshot.data.currency,
+                                                img: snapshot.data.img,
+                                                orgTotal:
+                                                    snapshot.data.orgTotal,
+                                                quantity:
+                                                    snapshot.data.quantity),
+                                          ],
+                                        ),
+                                      );
+                                    } else if (snapshot.hasError) {
+                                      return Text("${snapshot.error}");
+                                    } else {
+                                      return Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 200, bottom: 289),
+                                        child: Center(
+                                            child: CircularProgressIndicator()),
+                                      );
+                                    }
+                                  },
                                 ),
                               ],
                             ),
@@ -145,7 +177,7 @@ class _QRDataJSONState extends State<QRDataJSON> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 2.0, bottom: 20.0),
+                padding: const EdgeInsets.only(bottom: 20.0),
                 child: SizedBox(
                   width: 350.0,
                   height: 60.0,

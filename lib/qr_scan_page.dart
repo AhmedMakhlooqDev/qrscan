@@ -53,7 +53,9 @@ class _MyAppState extends State<MyApp> {
             context,
             MaterialPageRoute(
                 builder: (BuildContext context) => QRDataJSON(qrLink: qrText)));
+        qrText = "";
       }
+
       isRead = true;
       return 0;
     });

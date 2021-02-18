@@ -28,7 +28,7 @@ fetchJSONItems() async {
     // for (Map i in data) {
     //   qrDataList.add(QrData.fromJson(i));
     // }
-    return QrData.fromJson(jsonDecode(response.body)[0]);
+    return ItemData.fromJson(jsonDecode(response.body)[0]);
   } else {
     print('error, \nresponse code : ${response.statusCode}');
     throw Exception('Failed to load data');
