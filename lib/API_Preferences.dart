@@ -24,11 +24,13 @@ fetchJSONItems() async {
   if (response.statusCode == 200) {
     //String responseBody = response.body;
     //List<dynamic> data = json.decode(responseBody);
-
-    // for (Map i in data) {
-    //   qrDataList.add(QrData.fromJson(i));
-    // }
-    return ItemData.fromJson(jsonDecode(response.body)[0]);
+    List<dynamic> items = jsonDecode(response.body);
+    List<ItemData> convertedItems = [];
+    for (var item in items) {
+      convertedItems.add(ItemData.fromJson(item));
+    }
+    //print(items[1]['original_total']);
+    return convertedItems;
   } else {
     print('error, \nresponse code : ${response.statusCode}');
     throw Exception('Failed to load data');

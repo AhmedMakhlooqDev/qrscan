@@ -47,13 +47,16 @@ class _MyAppState extends State<MyApp> {
     this.controller = controller;
     controller.scannedDataStream.listen((scanData) {
       qrText = scanData;
+
       print("Hello: $qrText");
       if (isRead == false) {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (BuildContext context) => QRDataJSON(qrLink: qrText)));
-        qrText = "";
+                builder: (BuildContext context) => QRDataJSON(
+                      qrLink: qrText,
+                      orderIDnp: qrText,
+                    )));
       }
 
       isRead = true;

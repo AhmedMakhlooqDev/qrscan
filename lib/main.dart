@@ -19,7 +19,7 @@ class _AppState extends State<AppQR> {
         backgroundColor: Colors.blue[900],
         title: Text(
           "QR scanner",
-          style: TextStyle(fontWeight: FontWeight.w100),
+          style: TextStyle(fontWeight: FontWeight.w300),
         ),
       ),
       body: Container(
@@ -37,7 +37,7 @@ class _AppState extends State<AppQR> {
                 padding: const EdgeInsets.only(top: 190, bottom: 30),
                 child: Text(
                   'Press the scan button to start scanning',
-                  style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w100),
+                  style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w300),
                 ),
               ),
               Center(
@@ -47,13 +47,13 @@ class _AppState extends State<AppQR> {
                 height: 20.0,
               ),
               Center(
-                child: ScanButton(name: 'Enter Number'),
+                child: OrderNumberButton(name: 'Enter Number'),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 150),
                 child: Text(
                   'powered by Gatee',
-                  style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.w100),
+                  style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.w300),
                 ),
               ),
             ],

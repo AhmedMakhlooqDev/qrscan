@@ -8,7 +8,9 @@ import 'API_Preferences.dart';
 
 class QRDataJSON extends StatefulWidget {
   final String qrLink;
-  QRDataJSON({Key key, @required this.qrLink}) : super(key: key);
+  final String orderIDnp;
+  QRDataJSON({Key key, @required this.qrLink, @required this.orderIDnp})
+      : super(key: key);
   @override
   _QRDataJSONState createState() => _QRDataJSONState();
 }
@@ -128,25 +130,26 @@ class _QRDataJSONState extends State<QRDataJSON> {
                                   future: fetchJSONItems(),
                                   builder: (context, AsyncSnapshot snapshot) {
                                     if (snapshot.hasData) {
-                                      return Padding(
-                                        padding: const EdgeInsets.only(
-                                          top: 5,
-                                          bottom: 20,
-                                        ),
-                                        child: Wrap(
-                                          //direction: Axis.vertical,
-                                          spacing: 5,
-                                          children: <Widget>[
-                                            ItemRow(
-                                                nameEng: snapshot.data.nameEng,
-                                                currency:
-                                                    snapshot.data.currency,
-                                                img: snapshot.data.img,
-                                                orgTotal:
-                                                    snapshot.data.orgTotal,
-                                                quantity:
-                                                    snapshot.data.quantity),
-                                          ],
+                                      return SizedBox(
+                                        height: 420,
+                                        child: ListView.builder(
+                                          scrollDirection: Axis.vertical,
+                                          itemCount: snapshot.data.length,
+                                          itemBuilder: (BuildContext context,
+                                              int index) {
+                                            return Expanded(
+                                              child: ItemRow(
+                                                  nameEng: snapshot
+                                                      .data[index].nameEng,
+                                                  currency: snapshot
+                                                      .data[index].currency,
+                                                  img: snapshot.data[index].img,
+                                                  orgTotal: snapshot
+                                                      .data[index].orgTotal,
+                                                  quantity: snapshot
+                                                      .data[index].quantity),
+                                            );
+                                          },
                                         ),
                                       );
                                     } else if (snapshot.hasError) {

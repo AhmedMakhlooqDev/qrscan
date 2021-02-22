@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'order_number_page.dart';
 import 'qr_scan_page.dart';
 
 //----------------------------------------------------------------------------------------
@@ -236,7 +237,39 @@ class ScanButton extends StatelessWidget {
         textColor: Colors.white,
         child: Text(
           '${this.name}',
-          style: TextStyle(fontSize: 25, fontWeight: FontWeight.w100),
+          style: TextStyle(fontSize: 25, fontWeight: FontWeight.w400),
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+      ),
+    );
+  }
+}
+
+class OrderNumberButton extends StatelessWidget {
+  final String name;
+
+  const OrderNumberButton({
+    @required this.name,
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 250.0,
+      height: 75.0,
+      child: RaisedButton(
+        onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (BuildContext context) => OrderNumberPage()));
+        },
+        color: Colors.blue[900],
+        textColor: Colors.white,
+        child: Text(
+          '${this.name}',
+          style: TextStyle(fontSize: 25, fontWeight: FontWeight.w400),
         ),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.0),
