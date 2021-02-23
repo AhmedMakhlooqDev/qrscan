@@ -8,9 +8,8 @@ import 'API_Preferences.dart';
 
 class QRDataJSON extends StatefulWidget {
   final String qrLink;
-  final String orderIDnp;
-  QRDataJSON({Key key, @required this.qrLink, @required this.orderIDnp})
-      : super(key: key);
+
+  QRDataJSON({Key key, @required this.qrLink}) : super(key: key);
   @override
   _QRDataJSONState createState() => _QRDataJSONState();
 }
@@ -137,18 +136,16 @@ class _QRDataJSONState extends State<QRDataJSON> {
                                           itemCount: snapshot.data.length,
                                           itemBuilder: (BuildContext context,
                                               int index) {
-                                            return Expanded(
-                                              child: ItemRow(
-                                                  nameEng: snapshot
-                                                      .data[index].nameEng,
-                                                  currency: snapshot
-                                                      .data[index].currency,
-                                                  img: snapshot.data[index].img,
-                                                  orgTotal: snapshot
-                                                      .data[index].orgTotal,
-                                                  quantity: snapshot
-                                                      .data[index].quantity),
-                                            );
+                                            return ItemRow(
+                                                nameEng: snapshot
+                                                    .data[index].nameEng,
+                                                currency: snapshot
+                                                    .data[index].currency,
+                                                img: snapshot.data[index].img,
+                                                orgTotal: snapshot
+                                                    .data[index].orgTotal,
+                                                quantity: snapshot
+                                                    .data[index].quantity);
                                           },
                                         ),
                                       );
@@ -187,6 +184,7 @@ class _QRDataJSONState extends State<QRDataJSON> {
                   child: RaisedButton(
                     onPressed: () {
                       qrText = '';
+                      setState(() {});
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (BuildContext context) => AppQR()));
                     },

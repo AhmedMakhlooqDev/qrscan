@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:qrscan/modals/API_data.dart';
 import 'package:qrscan/qr_scan_page.dart';
-
 import 'DetailsPage.dart';
 //import 'package:pin_code_fields/pin_code_fields.dart';
 
@@ -19,6 +19,7 @@ class _MyAppState extends State<OrderNumberPage> {
 
   @override
   Widget build(BuildContext context) {
+    print(qrText);
     return Scaffold(
         backgroundColor: Colors.white,
         resizeToAvoidBottomInset: false,
@@ -102,9 +103,10 @@ class _MyAppState extends State<OrderNumberPage> {
                   child: RaisedButton(
                     onPressed: () {
                       //here the code to navigate to the page of entering the orderID
+                      qrText = orderID.text;
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (BuildContext context) => QRDataJSON(
-                              orderIDnp: orderID.text, qrLink: qrText)));
+                          builder: (BuildContext context) =>
+                              QRDataJSON(qrLink: qrText)));
                     },
                     color: Colors.blue[900],
                     textColor: Colors.white,
