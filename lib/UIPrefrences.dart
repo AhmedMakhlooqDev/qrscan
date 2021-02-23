@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:qrscan/modals/API_data.dart';
 import 'order_number_page.dart';
 import 'qr_scan_page.dart';
 
@@ -36,7 +37,9 @@ class PaymentStatues extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 700,
-      color: Colors.lightGreen[500],
+      color: (value.contains('unpaid') || value.contains('pending'))
+          ? Colors.red
+          : Colors.lightGreen[500],
       child: Padding(
         padding: const EdgeInsets.only(
             top: 10.0, bottom: 10.0, left: 20.0, right: 20.0),
