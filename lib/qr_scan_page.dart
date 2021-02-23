@@ -37,29 +37,30 @@ class _MyAppState extends State<MyApp> {
     );
   }
 
-  void dispose() {
-    controller?.dispose();
-    super.dispose();
-  }
-
   bool isRead = false;
   void _onQRViewCreate(QRViewController controller) {
     this.controller = controller;
     controller.scannedDataStream.listen((scanData) {
-      qrText = scanData;
-
-      print("Hello: $qrText");
-      if (isRead == false) {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (BuildContext context) => QRDataJSON(
-                      qrLink: qrText,
-                    )));
-      }
-
-      isRead = true;
-      return 0;
+      setState(() {
+        qrText = scanData;
+        //print("Hello: $qrText");
+        if (isRead == false) {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (BuildContext context) => QRDataJSON(
+                        qrLink: qrText,
+                      )));
+        }
+        isRead = true;
+        return 0;
+      });
     });
+  }
+
+  @override
+  void dispose() {
+    controller?.dispose();
+    super.dispose();
   }
 }

@@ -16,6 +16,12 @@ class QRDataJSON extends StatefulWidget {
 
 class _QRDataJSONState extends State<QRDataJSON> {
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.blue[900],
@@ -183,10 +189,11 @@ class _QRDataJSONState extends State<QRDataJSON> {
                   height: 60.0,
                   child: RaisedButton(
                     onPressed: () {
-                      qrText = '';
-                      setState(() {});
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (BuildContext context) => AppQR()));
+                      setState(() {
+                        qrText = '';
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (BuildContext context) => AppQR()));
+                      });
                     },
                     color: Colors.blue[900],
                     textColor: Colors.white,
